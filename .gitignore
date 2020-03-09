@@ -28,4 +28,4 @@ transcript*
 sc_dpiheader.h
 vsim.dbg
 
-
+.hdl_checker
