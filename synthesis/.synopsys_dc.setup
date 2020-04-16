@@ -1,0 +1,38 @@
+###############################################################################
+### SET BASE SEARCH PATH
+###############################################################################
+
+set search_path  ". ${synopsys_root}/libraries/syn/"
+
+
+###############################################################################
+### DEFINE DESIGN LIBRARY
+###############################################################################
+
+define_design_lib WORK -path ./WORK/
+
+
+###############################################################################
+### DEFINE STANDARD CELL & DW LIBRARIES
+###############################################################################
+
+set target_library     "slow.db"
+set synthetic_library  "dw_foundation.sldb"
+set link_library       "* $target_library $synthetic_library"
+set search_path        [join "$search_path ../techlibs/"]
+
+
+###############################################################################
+### MISCELLANEOUS OPTIONS
+###############################################################################
+
+suppress_message {CMD-041}
+suppress_message {VHD-4}
+suppress_message {UID-401}
+
+set hdlin_vhdl_std 2008
+set hdlin_check_no_latch true
+
+set template_naming_style "%s_%p"
+set template_parameter_style "%d"
+set template_separator_style "_"
