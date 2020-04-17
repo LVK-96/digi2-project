@@ -26,15 +26,17 @@ end entity ram;
 
 architecture rtl of ram is
   signal memory : mem_array_8;
-  constant pcl_addr : integer := 16#02#;
+  constant indf_addr   : integer := 16#00#;
+  constant pcl_addr    : integer := 16#02#;
   constant status_addr : integer := 16#03#;
-  -- pch is not directly writeable or readable
-  constant pch_addr : integer := 16#0A#;
+  constant fsr_addr    : integer := 16#04#;
+  constant pch_addr    : integer := 16#0A#;
 begin
   status_out <= memory(status_addr);
-  pc_out <= memory(pch_addr)(4 downto 0) & memory(pcl_addr) when pc_we = '0' else pc_in;
+  pc_out <= pc_in when pc_we = '1' else memory(pch_addr)(4 downto 0) & memory(pcl_addr);
 
   with to_integer(unsigned(addr)) select d_out <=
+    memory(to_integer(unsigned(memory(fsr_addr)))) when indf_addr,
     "00000000" when pch_addr, -- pch is not explicitly readable
     memory(to_integer(unsigned(addr))) when others;
 
@@ -55,7 +57,7 @@ begin
       end if;
 
       addr_int := to_integer(unsigned(addr));
-      if we = '1' and addr_int /= pch_addr then
+      if we = '1' and addr_int /= pch_addr then -- pch is not explicitly writeable
         -- According to the datasheet, write to 3 low status bits is disabled if the instruction affects status
         -- and bits 3 and 4 of the status register are not writeable
         if addr_int = status_addr then
