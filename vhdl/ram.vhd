@@ -32,8 +32,11 @@ architecture rtl of ram is
   constant pch_addr : integer := 16#0A#;
 begin
   status_out <= memory(status_addr);
-  pc_out <= memory(pch_addr)(4 downto 0) & memory(pcl_addr);
-  d_out <= memory(to_integer(unsigned(addr))) when to_integer(unsigned(addr)) /= pch_addr else "00000000";
+  pc_out <= memory(pch_addr)(4 downto 0) & memory(pcl_addr) when pc_we = '0' else pc_in;
+
+  with to_integer(unsigned(addr)) select d_out <=
+    "00000000" when pch_addr, -- pch is not explicitly readable
+    memory(to_integer(unsigned(addr))) when others;
 
   process(clk, reset)
     variable addr_int : integer;
