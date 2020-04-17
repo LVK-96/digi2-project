@@ -55,5 +55,10 @@ add wave dut.idec.fl_out
 add wave dut.idec.bit_select_out
 add wave dut.idec.pc_out
 add wave dut.idec.state
-run 6400ns
+
+add wave -noupdate -divider output
+add wave pic16f84a_tb.porta
+add wave pic16f84a_tb.portb
+
+run 6800ns
 wave zoom full

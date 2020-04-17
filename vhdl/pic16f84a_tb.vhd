@@ -15,6 +15,8 @@ architecture behav of pic16f84a_tb is
   signal ram_reset   : std_logic;
   signal idec_reset  : std_logic;
   signal idec_enable : std_logic;
+  signal porta       : std_logic_vector(porta_n - 1 downto 0);
+  signal portb       : std_logic_vector(portb_n - 1 downto 0);
 begin
   DUT : entity work.top
   port map (
@@ -22,7 +24,9 @@ begin
     w_reg_reset => w_reg_reset,
     ram_reset   => ram_reset,
     idec_reset  => idec_reset,
-    idec_enable => idec_enable
+    idec_enable => idec_enable,
+    porta       => porta,
+    portb       => portb
   );
 
 	run_sim : process is

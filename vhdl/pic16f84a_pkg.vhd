@@ -9,12 +9,14 @@ package pic16f84a is
   constant n             : natural   := 8;
   constant status_n      : natural   := 3;
   constant select_n      : natural   := 3;
+  constant porta_n       : integer   := 5;
+  constant portb_n       : integer   := 8;
   constant pc_n          : natural   := 13;
   constant instruction_n : natural   := 14;
   constant freq          : integer   := 20e6;
   constant period        : time      := 1000 ms / freq;
   constant half_period   : time      := period / 2;
-  constant pc_start : std_logic_vector(n - 1 downto 0) := "00000000";
+  constant pc_start      : std_logic_vector(n - 1 downto 0) := "00000000";
 
   -- Opcodes
   constant ADDWF_OPCODE : std_logic_vector(instruction_n - 1 downto 0) := "000111--------";
@@ -128,6 +130,11 @@ package pic16f84a is
     MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
     MOVWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#03#, 7)),
     CLRF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#03#, 7)),
+
+    -- Test outputs
+    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
+    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#05#, 7)),
+    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#06#, 7)),
 
     -- Fill rest with NOP
     others => (others => '0')

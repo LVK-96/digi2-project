@@ -12,7 +12,9 @@ entity top is
     signal w_reg_reset : in std_logic;
     signal ram_reset   : in std_logic;
     signal idec_reset  : in std_logic;
-    signal idec_enable : in std_logic
+    signal idec_enable : in std_logic;
+    signal porta       : out std_logic_vector(porta_n - 1 downto 0);
+    signal portb       : out std_logic_vector(portb_n - 1 downto 0)
   );
 begin
 end entity top;
@@ -91,7 +93,9 @@ begin
     reset      => ram_reset,
     d_out      => ram_d_out,
     status_out => ram_status_out,
-    pc_out     => ram_pc_out
+    pc_out     => ram_pc_out,
+    porta      => porta,
+    portb      => portb
   );
 
   program_mem : entity work.program_mem
