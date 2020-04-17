@@ -8,8 +8,9 @@ use work.pic16f84a.all;
 
 entity top is
   port (
-    signal ram_reset   : in std_logic;
+    signal pc_reset : in std_logic;
     signal w_reg_reset : in std_logic;
+    signal ram_reset   : in std_logic;
     signal idec_reset  : in std_logic;
     signal idec_enable : in std_logic
   );
@@ -20,20 +21,19 @@ architecture rtl of top is
   -- Common
   signal clk: std_logic := '1';
 
-  -- ALU
-  signal alu_enable     : std_logic;
-  signal alu_fl_in      : std_logic_vector(n - 1 downto 0);
-  signal alu_result     : std_logic_vector(n - 1 downto 0);
-  signal alu_operation  : operation;
-  signal alu_bit_select : std_logic_vector(select_n - 1 downto 0);
-  signal alu_status_out : std_logic_vector(n - 1 downto 0);
+  -- Program counter
+  signal pc_we       : std_logic;
+  signal pc_d_out    : std_logic_vector(pc_n - 1 downto 0);
+
+  -- W register
+  signal w_reg_we    : std_logic;
+  signal w_reg_d_out : std_logic_vector(n - 1 downto 0);
 
   -- RAM
   signal ram_d_out         : std_logic_vector(n - 1 downto 0);
   signal ram_status_out    : std_logic_vector(n - 1 downto 0);
   signal ram_we            : std_logic;
   signal status_we         : std_logic;
-  signal pc_we             : std_logic;
   signal ram_pc_out        : std_logic_vector(n - 1 downto 0);
 
   -- Program memory
@@ -42,17 +42,31 @@ architecture rtl of top is
   signal program_mem_we    : std_logic;
   signal program_mem_reset : std_logic;
 
-  -- W register
-  signal w_reg_we    : std_logic;
-  signal w_reg_d_out : std_logic_vector(n - 1 downto 0);
+  -- ALU
+  signal alu_enable     : std_logic;
+  signal alu_fl_in      : std_logic_vector(n - 1 downto 0);
+  signal alu_result     : std_logic_vector(n - 1 downto 0);
+  signal alu_operation  : operation;
+  signal alu_bit_select : std_logic_vector(select_n - 1 downto 0);
+  signal alu_status_out : std_logic_vector(n - 1 downto 0);
 
   -- Instruction decoder
   signal idec_fl_out     : std_logic_vector(n - 1 downto 0);
-  signal idec_pc_out     : std_logic_vector(n - 1 downto 0);
+  signal idec_pc_out     : std_logic_vector(pc_n - 1 downto 0);
   signal literal_flag    : std_logic;
 begin
   clk <= not clk after half_period;
   alu_fl_in <= idec_fl_out when literal_flag = '1' else ram_d_out;
+
+  pc : entity work.n_bit_register
+  generic map (pc_n)
+  port map (
+    clk   => clk,
+    d_in  => idec_pc_out,
+    we    => pc_we,
+    reset => pc_reset,
+    d_out => pc_d_out
+  );
 
   w_reg : entity work.n_bit_register
   generic map (n)
@@ -69,20 +83,17 @@ begin
     clk        => clk,
     d_in       => alu_result,
     status_in  => alu_status_out,
-    pc_in      => idec_pc_out,
     addr       => idec_fl_out,
     we         => ram_we,
     status_we  => status_we,
-    pc_we      => pc_we,
     reset      => ram_reset,
     d_out      => ram_d_out,
-    status_out => ram_status_out,
-    pc_out     => ram_pc_out
+    status_out => ram_status_out
   );
 
   program_mem : entity work.program_mem
   port map (
-    addr  => ram_pc_out,
+    addr  => pc_d_out,
     reset => program_mem_reset,
     d_out => program_mem_d_out
   );
@@ -104,7 +115,7 @@ begin
     clk            => clk,
     enable         => idec_enable,
     reset          => idec_reset,
-    pc_in          => ram_pc_out,
+    pc_in          => pc_d_out,
     instruction_in => program_mem_d_out,
     fl_out         => idec_fl_out,
     bit_select_out => alu_bit_select,

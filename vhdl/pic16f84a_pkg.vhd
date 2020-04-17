@@ -9,6 +9,7 @@ package pic16f84a is
   constant n             : natural   := 8;
   constant status_n      : natural   := 3;
   constant select_n      : natural   := 3;
+  constant pc_n          : natural   := 13;
   constant instruction_n : natural   := 14;
   constant freq          : integer   := 20e6;
   constant period        : time      := 1000 ms / freq;

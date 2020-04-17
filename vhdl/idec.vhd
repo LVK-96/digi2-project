@@ -11,7 +11,7 @@ entity idec is
     clk            : in std_logic;
     enable         : in std_logic;
     reset          : in std_logic;
-    pc_in          : in std_logic_vector(n - 1 downto 0);
+    pc_in          : in std_logic_vector(pc_n - 1 downto 0);
     instruction_in : in std_logic_vector(instruction_n - 1 downto 0);
     fl_out         : out std_logic_vector(n - 1 downto 0);
     bit_select_out : out std_logic_vector(select_n - 1 downto 0);
@@ -22,7 +22,7 @@ entity idec is
     literal_flag   : out std_logic;
     pc_we          : out std_logic;
     w_reg_we       : out std_logic;
-    pc_out         : out std_logic_vector(n - 1 downto 0)
+    pc_out         : out std_logic_vector(pc_n - 1 downto 0)
   );
 end entity idec;
 
@@ -199,7 +199,7 @@ begin
       alu_enable <= '0';
       literal_flag <= '0';
       pc_we <= '0';
-      pc_out <= "00000000";
+      pc_out <= "0000000000000";
       state <= iFetch;
     end if;
     if (rising_edge(clk)) then
@@ -223,17 +223,28 @@ begin
               -- It is a NOP or we failed to decode the instruction
               -- just increment pc and try the next one
               pc_we <= '1';
-              pc_out <= std_logic_vector(pc_in + "00000001");
+              pc_out <= std_logic_vector(unsigned(pc_in) + to_unsigned(1, pc_n));
             end if;
           when MRead =>
             alu_enable <= '1';
             state <= Execute;
           when Execute =>
             alu_enable <= '0';
-            ram_we <= instruction_in(7) when executing_byte_oriented else '0' xor executing_bit_oriented;
-            w_reg_we <= not instruction_in(7) when executing_byte_oriented else '1' xor executing_bit_oriented;
+
+            if executing_byte_oriented = '1' then
+              ram_we <= instruction_in(7);
+            else
+              ram_we <= '0' xor executing_bit_oriented;
+            end if;
+
+            if executing_byte_oriented = '1' then
+              w_reg_we <= not instruction_in(7);
+            else
+              w_reg_we <= '1' xor executing_bit_oriented;
+            end if;
+
             status_we <= affects_status;
-            pc_out <= std_logic_vector(pc_in + "00000001");
+            pc_out <= std_logic_vector(unsigned(pc_in) + to_unsigned(1, pc_n));
             pc_we <= '1';
             state <= Mwrite;
           when Mwrite =>

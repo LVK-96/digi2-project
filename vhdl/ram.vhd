@@ -11,26 +11,21 @@ entity ram is
     --
     d_in       : in  std_logic_vector(n - 1 downto 0);
     status_in  : in  std_logic_vector(n - 1 downto 0);
-    pc_in      : in  std_logic_vector(n - 1 downto 0);
     addr       : in  std_logic_vector(n - 1 downto 0);
     we         : in  std_logic;
     status_we  : in  std_logic;
-    pc_we      : in  std_logic;
     reset      : in  std_logic;
     --
     d_out      : out std_logic_vector(n - 1 downto 0);
-    status_out : out std_logic_vector(n - 1 downto 0);
-    pc_out     : out std_logic_vector(n - 1 downto 0)
+    status_out : out std_logic_vector(n - 1 downto 0)
   );
 end entity ram;
 
 architecture rtl of ram is
   signal memory : mem_array_8;
   constant status_addr : integer := 16#03#;
-  constant pc_addr     : integer := 16#02#;
 begin
   status_out <= memory(status_addr);
-  pc_out <= memory(pc_addr);
   d_out <= memory(to_integer(unsigned(addr)));
 
   process(clk, reset)
@@ -41,9 +36,6 @@ begin
     if rising_edge(clk) then
       if status_we = '1' then
         memory(status_addr)(2 downto 0) <= status_in(2 downto 0);
-      end if;
-      if pc_we = '1' then
-        memory(pc_addr) <= pc_in;
       end if;
       if we = '1' then
         -- According to the datasheet, write to 3 low status bits is disabled if the instruction affects status

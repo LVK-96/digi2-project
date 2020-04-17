@@ -7,7 +7,7 @@ use work.pic16f84a.all;
 
 entity program_mem is
   port (
-    addr          : in    std_logic_vector(n - 1 downto 0);
+    addr          : in    std_logic_vector(pc_n - 1 downto 0);
     reset         : in    std_logic;
     --
     d_out         : out   std_logic_vector(instruction_n - 1 downto 0)
