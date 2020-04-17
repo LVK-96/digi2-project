@@ -20,7 +20,9 @@ entity ram is
     --
     d_out      : out std_logic_vector(n - 1 downto 0);
     pc_out     : out std_logic_vector(pc_n - 1 downto 0);
-    status_out : out std_logic_vector(n - 1 downto 0)
+    status_out : out std_logic_vector(n - 1 downto 0);
+    porta      : out std_logic_vector(porta_n - 1 downto 0);
+    portb      : out std_logic_vector(portb_n - 1 downto 0)
   );
 end entity ram;
 
@@ -30,10 +32,15 @@ architecture rtl of ram is
   constant pcl_addr    : integer := 16#02#;
   constant status_addr : integer := 16#03#;
   constant fsr_addr    : integer := 16#04#;
+  constant porta_addr  : integer := 16#05#;
+  constant portb_addr  : integer := 16#06#;
   constant pch_addr    : integer := 16#0A#;
 begin
   status_out <= memory(status_addr);
   pc_out <= pc_in when pc_we = '1' else memory(pch_addr)(4 downto 0) & memory(pcl_addr);
+
+  porta <= memory(porta_addr)(porta_n - 1 downto 0);
+  portb <= memory(portb_addr);
 
   with to_integer(unsigned(addr)) select d_out <=
     memory(to_integer(unsigned(memory(fsr_addr)))) when indf_addr,
