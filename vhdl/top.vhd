@@ -34,7 +34,7 @@ architecture rtl of top is
   signal ram_status_out    : std_logic_vector(n - 1 downto 0);
   signal ram_we            : std_logic;
   signal status_we         : std_logic;
-  signal ram_pc_out        : std_logic_vector(n - 1 downto 0);
+  signal ram_pc_out        : std_logic_vector(pc_n - 1 downto 0);
 
   -- Program memory
   signal program_mem_d_in  : std_logic_vector(instruction_n - 1 downto 0);
@@ -62,7 +62,7 @@ begin
   generic map (pc_n)
   port map (
     clk   => clk,
-    d_in  => idec_pc_out,
+    d_in  => ram_pc_out,
     we    => pc_we,
     reset => pc_reset,
     d_out => pc_d_out
@@ -83,12 +83,15 @@ begin
     clk        => clk,
     d_in       => alu_result,
     status_in  => alu_status_out,
+    pc_in      => idec_pc_out,
     addr       => idec_fl_out,
     we         => ram_we,
+    pc_we      => pc_we,
     status_we  => status_we,
     reset      => ram_reset,
     d_out      => ram_d_out,
-    status_out => ram_status_out
+    status_out => ram_status_out,
+    pc_out     => ram_pc_out
   );
 
   program_mem : entity work.program_mem
