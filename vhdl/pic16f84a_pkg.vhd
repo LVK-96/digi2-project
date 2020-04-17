@@ -96,8 +96,10 @@ package pic16f84a is
     -- Byte oriented
     MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
     MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#0C#, 7)),
+    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001100",
+    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#04#, 7)),
     MOVLW_OPCODE(instruction_n - 1 downto 8) & "00000000",
-    ADDWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
+    ADDWF_OPCODE(instruction_n - 1 downto 8) & '0' & std_logic_vector(to_unsigned(16#00#, 7)),
     SUBWF_OPCODE(instruction_n - 1 downto 8) & '0' & std_logic_vector(to_unsigned(16#0C#, 7)),
     INCF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#0D#, 7)),
     DECF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#0D#, 7)),

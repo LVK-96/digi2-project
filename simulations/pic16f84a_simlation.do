@@ -21,6 +21,8 @@ add wave dut.ram.status_we
 add wave dut.ram.memory(16#03)
 add wave dut.ram.status_in
 add wave dut.ram.status_out
+add wave dut.ram.pc_in
+add wave dut.ram.pc_out
 
 add wave -noupdate -divider pc
 add wave dut.pc.we
