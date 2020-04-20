@@ -6,13 +6,14 @@ use ieee.numeric_std.all;
 use ieee.std_logic_unsigned.all;
 
 package pic16f84a is
-  constant n             : natural   := 8;
-  constant status_n      : natural   := 3;
-  constant select_n      : natural   := 3;
+  constant n             : integer   := 8;
+  constant status_n      : integer   := 3;
+  constant select_n      : integer   := 3;
   constant porta_n       : integer   := 5;
   constant portb_n       : integer   := 8;
-  constant pc_n          : natural   := 13;
-  constant instruction_n : natural   := 14;
+  constant pc_n          : integer   := 13;
+  constant instruction_n : integer   := 14;
+  constant inst_mem_size : integer   := 1024;
   constant freq          : integer   := 20e6;
   constant period        : time      := 1000 ms / freq;
   constant half_period   : time      := period / 2;
@@ -45,7 +46,7 @@ package pic16f84a is
   constant NOP_OPCODE   : std_logic_vector(instruction_n - 1 downto 0) := "0000000-------";
 
   -- Memory types
-  type mem_array_14 is array (0 to 2**n - 1) of std_logic_vector(instruction_n - 1 downto 0);
+  type program_array is array(0 TO inst_mem_size - 1) of std_logic_vector(instruction_n - 1 downto 0);
   type mem_array_8 is array (0 to 2**n - 1) of std_logic_vector(n - 1 downto 0);
 
   type operation is (
@@ -82,61 +83,5 @@ package pic16f84a is
     Execute,
     Mwrite,
     UNDEFINED
-  );
-
-  -- Test instructions
-  constant init_inst : mem_array_14 := (
-    -- Literal
-    ADDLW_OPCODE(instruction_n - 1 downto 8) & "00000001",
-    SUBLW_OPCODE(instruction_n - 1 downto 8) & "00000001",
-    ANDLW_OPCODE(instruction_n - 1 downto 8) & "00000000",
-    IORLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    XORLW_OPCODE(instruction_n - 1 downto 8) & "11111111",
-    CLRW_OPCODE(instruction_n - 1 downto 7)  & "0000000",
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "11111111",
-
-    -- Byte oriented
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#0C#, 7)),
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001100",
-    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#04#, 7)),
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00000000",
-    ADDWF_OPCODE(instruction_n - 1 downto 8) & '0' & std_logic_vector(to_unsigned(16#00#, 7)),
-    SUBWF_OPCODE(instruction_n - 1 downto 8) & '0' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    INCF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#0D#, 7)),
-    DECF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#0D#, 7)),
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    ANDWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    IORWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    XORWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    MOVWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    CLRF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    MOVWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    SWAPF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    RLF_OPCODE(instruction_n - 1 downto 8)   & '0' & std_logic_vector(to_unsigned(16#0C#, 7)),
-    RRF_OPCODE(instruction_n - 1 downto 8)   & '1' & std_logic_vector(to_unsigned(16#0C#, 7)),
-
-    -- Bit oriented
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    MOVWF_OPCODE(instruction_n - 1 downto 8) &  '1'  & std_logic_vector(to_unsigned(16#0C#, 7)),
-    BCF_OPCODE(instruction_n - 1 downto 10)  & "000" & std_logic_vector(to_unsigned(16#0C#, 7)),
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001110",
-    MOVWF_OPCODE(instruction_n - 1 downto 8) &  '1'  & std_logic_vector(to_unsigned(16#0E#, 7)),
-    BSF_OPCODE(instruction_n - 1 downto 10)  & "000" & std_logic_vector(to_unsigned(16#0E#, 7)),
-
-    -- Test assertion for writes to status reg
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    MOVWF_OPCODE(instruction_n - 1 downto 8) & '1' & std_logic_vector(to_unsigned(16#03#, 7)),
-    CLRF_OPCODE(instruction_n - 1 downto 8)  & '1' & std_logic_vector(to_unsigned(16#03#, 7)),
-
-    -- Test outputs
-    MOVLW_OPCODE(instruction_n - 1 downto 8) & "00001111",
-    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#05#, 7)),
-    MOVWF_OPCODE(instruction_n - 1 downto 7) & std_logic_vector(to_unsigned(16#06#, 7)),
-
-    -- Fill rest with NOP
-    others => (others => '0')
   );
 end package pic16f84a;

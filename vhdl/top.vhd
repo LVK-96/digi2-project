@@ -8,13 +8,14 @@ use work.pic16f84a.all;
 
 entity top is
   port (
-    signal pc_reset : in std_logic;
-    signal w_reg_reset : in std_logic;
-    signal ram_reset   : in std_logic;
-    signal idec_reset  : in std_logic;
-    signal idec_enable : in std_logic;
-    signal porta       : out std_logic_vector(porta_n - 1 downto 0);
-    signal portb       : out std_logic_vector(portb_n - 1 downto 0)
+    signal pc_reset          : in std_logic;
+    signal w_reg_reset       : in std_logic;
+    signal ram_reset         : in std_logic;
+    signal idec_reset        : in std_logic;
+    signal program_mem_reset : in std_logic;
+    signal idec_enable       : in std_logic;
+    signal porta             : out std_logic_vector(porta_n - 1 downto 0);
+    signal portb             : out std_logic_vector(portb_n - 1 downto 0)
   );
 begin
 end entity top;
@@ -39,10 +40,7 @@ architecture rtl of top is
   signal ram_pc_out        : std_logic_vector(pc_n - 1 downto 0);
 
   -- Program memory
-  signal program_mem_d_in  : std_logic_vector(instruction_n - 1 downto 0);
   signal program_mem_d_out : std_logic_vector(instruction_n - 1 downto 0);
-  signal program_mem_we    : std_logic;
-  signal program_mem_reset : std_logic;
 
   -- ALU
   signal alu_enable     : std_logic;

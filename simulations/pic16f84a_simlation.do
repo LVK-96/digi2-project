@@ -1,5 +1,5 @@
 vlib work
-vcom -work work -2008 ../vhdl/pic16f84a_pkg.vhd ../vhdl/alu.vhd ../vhdl/ram.vhd ../vhdl/program_mem.vhd ../vhdl/n_bit_register.vhd ../vhdl/idec.vhd ../vhdl/top.vhd ../vhdl/pic16f84a_tb.vhd
+vcom -work work -2008 ../vhdl/pic16f84a_pkg.vhd ../vhdl/hexfile_reader.vhd ../vhdl/alu.vhd ../vhdl/ram.vhd ../vhdl/program_mem.vhd ../vhdl/n_bit_register.vhd ../vhdl/idec.vhd ../vhdl/top.vhd ../vhdl/pic16f84a_tb.vhd
 
 vsim work.pic16f84a_tb
 add wave -noupdate -divider common

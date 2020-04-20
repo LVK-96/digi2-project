@@ -18,24 +18,16 @@ USE ieee.numeric_std.ALL;
 USE std.textio.ALL;
 USE ieee.std_logic_textio.ALL;
 USE ieee.std_logic_misc.ALL;
+USE work.pic16f84a.all;
 
 
 PACKAGE read_intel_hex_pack IS
   CONSTANT debug : BOOLEAN := true;
-  
-  ------------------------------------------------------------------------------
-  ----- Design Parameters  -----------------------------------------------------
-  ------------------------------------------------------------------------------  
-  
-  CONSTANT Inst_bits  : INTEGER := 14;   
-  CONSTANT data_bits  : INTEGER := 8;
-  CONSTANT inst_mem_size : INTEGER := 1024;
-  TYPE program_array IS ARRAY (0 TO inst_mem_size-1) OF STD_LOGIC_VECTOR(Inst_bits-1 DOWNTO 0);
-    
+
   ------------------------------------------------------------------------------
   ----- Reset Values -----------------------------------------------------------
-  ------------------------------------------------------------------------------  
-   
+  ------------------------------------------------------------------------------
+
 --  CONSTANT W_RESET          : STD_ULOGIC_VECTOR(data_bits-1 DOWNTO 0) := "XXXXXXXX";
 --  CONSTANT INDF_RESET       : STD_ULOGIC_VECTOR(data_bits-1 DOWNTO 0) := "--------";
 --  CONSTANT TMR0_RESET       : STD_ULOGIC_VECTOR(data_bits-1 DOWNTO 0) := "XXXXXXXX";
@@ -53,13 +45,13 @@ PACKAGE read_intel_hex_pack IS
 --  CONSTANT TRISB_RESET      : STD_ULOGIC_VECTOR(data_bits-1 DOWNTO 0) := "11111111";
 --  CONSTANT EECON1_RESET     : STD_ULOGIC_VECTOR(4 DOWNTO 0)           := "0X000";
 --  CONSTANT EECON2_RESET     : STD_ULOGIC_VECTOR(data_bits-1 DOWNTO 0) := "--------";
-     
+
   ------------------------------------------------------------------------------
   ----- Operations Codes -------------------------------------------------------
-  ------------------------------------------------------------------------------    
+  ------------------------------------------------------------------------------
 
   ----- BYTE-ORIENTED FILE REGISTER OPERATIONS ---------------------------------
-   
+
 --  CONSTANT ADDWF  : STD_ULOGIC_VECTOR := "000111--------";
 --  CONSTANT ANDWF  : STD_ULOGIC_VECTOR := "000101--------";
 --  CONSTANT CLRF   : STD_ULOGIC_VECTOR := "0000011-------";
@@ -78,9 +70,9 @@ PACKAGE read_intel_hex_pack IS
 --  CONSTANT SUBWF  : STD_ULOGIC_VECTOR := "000010--------";
 --  CONSTANT SWAPF  : STD_ULOGIC_VECTOR := "001110--------";
 --  CONSTANT XORWF  : STD_ULOGIC_VECTOR := "000110--------";
-   
+
   ----- BIT-ORIENTED FILE REGISTER OPERATIONS ----------------------------------
-   
+
 --  CONSTANT BCF    : STD_ULOGIC_VECTOR := "0100----------";
 --  CONSTANT BSF    : STD_ULOGIC_VECTOR := "0101----------";
 --  CONSTANT BTFSC  : STD_ULOGIC_VECTOR := "0110----------";
@@ -101,11 +93,11 @@ PACKAGE read_intel_hex_pack IS
 --  CONSTANT SLEEP  : STD_ULOGIC_VECTOR := "00000001100011";
 --  CONSTANT SUBLW  : STD_ULOGIC_VECTOR := "11110---------";
 --  CONSTANT XORLW  : STD_ULOGIC_VECTOR := "111010--------";
-  
+
   ------------------------------------------------------------------------------
   ----- Special Function Register Address --------------------------------------
-  ------------------------------------------------------------------------------  
-   
+  ------------------------------------------------------------------------------
+
 --  CONSTANT INDF_ADR    : STD_ULOGIC_VECTOR := "-0000000";
 --  CONSTANT TMR0_ADR    : STD_ULOGIC_VECTOR := "00000001";
 --  CONSTANT PCL_ADR     : STD_ULOGIC_VECTOR := "-0000010";
@@ -122,22 +114,22 @@ PACKAGE read_intel_hex_pack IS
 --  CONSTANT TRISB_ADR   : STD_ULOGIC_VECTOR := "10000110";
 --  CONSTANT EECON1_ADR  : STD_ULOGIC_VECTOR := "10001000";
 --  CONSTANT EECON2_ADR  : STD_ULOGIC_VECTOR := "10001001";
-   
+
   ------------------------------------------------------------------------------
   ----- STATUS Register Constants ----------------------------------------------
   ------------------------------------------------------------------------------
-   
+
 --  CONSTANT RP0_BIT   : INTEGER := 5;
 --  CONSTANT TO_BIT    : INTEGER := 4;
 --  CONSTANT PD_BIT    : INTEGER := 3;
 --  CONSTANT Z_BIT     : INTEGER := 2;
 --  CONSTANT DC_BIT    : INTEGER := 1;
 --  CONSTANT CARRY_BIT : INTEGER := 0;
-    
+
   ------------------------------------------------------------------------------
   ----- INTCON Register Constants ----------------------------------------------
   ------------------------------------------------------------------------------
-    
+
 --  CONSTANT GIE_BIT  : INTEGER := 7;
 --  CONSTANT EEIE_BIT : INTEGER := 6;
 --  CONSTANT T0IE_BIT : INTEGER := 5;
@@ -146,11 +138,11 @@ PACKAGE read_intel_hex_pack IS
 --  CONSTANT T0IF_BIT : INTEGER := 2;
 --  CONSTANT INTF_BIT : INTEGER := 1;
 --  CONSTANT RBIF_BIT : INTEGER := 0;
-       
+
   ------------------------------------------------------------------------------
   ----- OPTION Register Constants ----------------------------------------------
   ------------------------------------------------------------------------------
-    
+
 --  CONSTANT RBPU_BIT   : INTEGER := 7;
 --  CONSTANT INTEDG_BIT : INTEGER := 6;
 --  CONSTANT T0CS_BIT   : INTEGER := 5;
@@ -158,10 +150,10 @@ PACKAGE read_intel_hex_pack IS
 --  CONSTANT PSA_BIT    : INTEGER := 3;
 --  CONSTANT PS2_BIT    : INTEGER := 2;
 --  CONSTANT PS1_BIT    : INTEGER := 1;
---  CONSTANT PS0_BIT    : INTEGER := 0;    
-  
+--  CONSTANT PS0_BIT    : INTEGER := 0;
+
   PROCEDURE read_ihex_file (program_name : IN STRING; memory : OUT program_array);
-  
+
 END PACKAGE read_intel_hex_pack;
 
 PACKAGE BODY read_intel_hex_pack IS
@@ -184,7 +176,7 @@ PACKAGE BODY read_intel_hex_pack IS
       END IF;
     END LOOP;
   END str_to_hex;
-  
+
   PROCEDURE read_line_header (L : INOUT LINE; byte_count : INOUT INTEGER; address : INOUT INTEGER; record_type : INOUT INTEGER)  IS
     VARIABLE byte_count_str : STRING(1 to 2);
     VARIABLE address_str : STRING(1 to 4);
@@ -209,8 +201,8 @@ PACKAGE BODY read_intel_hex_pack IS
     str_to_hex(record_type_str, record_type);
     -- ASSERT debug; REPORT "DEBUG read_line_header: record type is" & recod_type; SEVERITY NOTE;
   END read_line_header;
-  
-  
+
+
   PROCEDURE read_instruction (L : INOUT LINE; instruction_hex : INOUT INTEGER) IS
     VARIABLE instruction_str : STRING(1 TO 4);
     VARIABLE instruction_str_tmp : STRING(1 TO 4);
@@ -219,12 +211,12 @@ PACKAGE BODY read_intel_hex_pack IS
   BEGIN
     -- L pointer is pointing to the instruction we want to read
     -- Thus, no need to update pointer
-    
+
     -- Read instruction
     FOR i IN 1 TO 4 LOOP
       READ(L, instruction_str(i));
     END LOOP;
-  
+
     -- Swap 2 lower and 2 higher byte: 1234 -> 3412
     instruction_str_tmp(1 TO 2) := instruction_str(1 to 2);
     instruction_str(1 TO 2) := instruction_str(3 to 4);
@@ -232,8 +224,8 @@ PACKAGE BODY read_intel_hex_pack IS
     str_to_hex(instruction_str, instruction_hex);
     -- ASSERT debug; REPORT "DEBUG read_instruction: instruction " & instruction_no & "is " & instruction_hex; SEVERITY NOTE;
   END read_instruction;
-  
-  
+
+
   PROCEDURE read_ihex_file (program_name : IN STRING; memory : OUT program_array) IS
     FILE program    : TEXT IS IN program_name;
     VARIABLE L : LINE;
@@ -246,53 +238,53 @@ PACKAGE BODY read_intel_hex_pack IS
     VARIABLE ch : CHARACTER;
   BEGIN
     WHILE NOT ENDFILE(program) LOOP
-      byte_count := 0;    
-      address := 0;       
-      record_type := 0;   
+      byte_count := 0;
+      address := 0;
+      record_type := 0;
 
       READLINE(program, L);
-    
+
       -- Move line pointer over semicolon
       READ(L, ch);
       -- Read first byte count, address and record type on the line
       read_line_header(L, byte_count, address, record_type);
-      
+
       CASE record_type IS
-        
+
         WHEN 0 => -- Data record
           FOR i IN 1 TO byte_count/2 LOOP -- toimiiko jos byte count == 1?
             read_instruction(L, instruction);
-            memory(address/2+i-1) := STD_LOGIC_VECTOR(to_unsigned(instruction, Inst_bits)); -- XXX
-          END LOOP; 
-          
+            memory(address/2+i-1) := STD_LOGIC_VECTOR(to_unsigned(instruction, instruction_n)); -- XXX
+          END LOOP;
+
         WHEN 1 => -- EOF record
           NULL;
-        
+
         WHEN 2 => -- Extended Segment Address Record
-          -- ASSERT 1; REPORT "Extended Segment Address record type 0x02 not implemented"; SEVERITY FAILURE; 
-        
+          -- ASSERT 1; REPORT "Extended Segment Address record type 0x02 not implemented"; SEVERITY FAILURE;
+
         WHEN 3 => -- Start Segment Address Record
-          -- ASSERT 1; REPORT "Start Segment Address record type 0x03 not implemented"; SEVERITY FAILURE; 
-        
-        WHEN 4 => -- 
+          -- ASSERT 1; REPORT "Start Segment Address record type 0x03 not implemented"; SEVERITY FAILURE;
+
+        WHEN 4 => --
           -- FOR i IN 0 TO 1 LOOP
           read_instruction(L, instruction);
-            -- ASSERT (instruction /= 0); REPORT "Extended Linear Address Record not zero";SEVERITY FAILURE; 
+            -- ASSERT (instruction /= 0); REPORT "Extended Linear Address Record not zero";SEVERITY FAILURE;
           -- END LOOP;
-        
+
         WHEN 5 => -- Start Linear Address Record
-          -- ASSERT 1; REPORT "Start Linear Address record type 0x05 not implemented"; SEVERITY FAILURE; 
-        
+          -- ASSERT 1; REPORT "Start Linear Address record type 0x05 not implemented"; SEVERITY FAILURE;
+
         WHEN OTHERS =>
-          -- ASSERT 1; REPORT "Invalid Intel HEX format record type"; SEVERITY FAILURE;    
-        
+          -- ASSERT 1; REPORT "Invalid Intel HEX format record type"; SEVERITY FAILURE;
+
         END CASE;
-    
+
     END LOOP; -- Read file
   END PROCEDURE read_ihex_file;
 
 END PACKAGE BODY read_intel_hex_pack;
-    
+
 --PROCEDURE read_ihex_file (program_name : IN STRING; memory : OUT program_array) IS -- pitaako maaritella tyyppi muualla??
 --  FILE program    : TEXT IS IN "/home/pro/autosub/erkka/digital/modelsim/" & program_name; -- saako program namen?
 --  TYPE program_array IS ARRAY (0 TO inst_mem_size-1) OF STD_LOGIC_VECTOR(Inst_bits-1 DOWNTO 0);
@@ -307,38 +299,38 @@ END PACKAGE BODY read_intel_hex_pack;
 --  WHILE NOT ENDFILE(program) LOOP
 --    READLINE(program, L);
 --    read_line_header(L, byte_count, address, record_type);
---    
+--
 --    CASE record_type IS
---      
+--
 --      WHEN X"00" => -- Data record
 --        FOR i IN 0 TO byte_count-1 LOOP -- toimiiko jos byte count == 1?
 --          read_instruction(L, i, instruction);
 --          program_array(address/2 + i) := instruction; -- tsekkaa
---        END LOOP; 
---        
+--        END LOOP;
+--
 --      WHEN X"01" => -- EOF record
 --        NULL;
---      
+--
 --      WHEN X"02" => -- Extended Segment Address Record
---        ASSERT 1; REPORT "Extended Segment Address record type 0x02 not implemented"; SEVERITY FAILURE; 
---      
+--        ASSERT 1; REPORT "Extended Segment Address record type 0x02 not implemented"; SEVERITY FAILURE;
+--
 --      WHEN X"03" => -- Start Segment Address Record
---        ASSERT 1; REPORT "Start Segment Address record type 0x03 not implemented"; SEVERITY FAILURE; 
---      
---      WHEN X"04" => -- 
+--        ASSERT 1; REPORT "Start Segment Address record type 0x03 not implemented"; SEVERITY FAILURE;
+--
+--      WHEN X"04" => --
 --        FOR i IN 0 TO 1 LOOP
 --          read_instruction(L, i, instruction);
---          ASSERT (instruction /= 0); REPORT "Extended Linear Address Record not zero";SEVERITY FAILURE; 
+--          ASSERT (instruction /= 0); REPORT "Extended Linear Address Record not zero";SEVERITY FAILURE;
 --        END LOOP;
---      
+--
 --      WHEN X"05" => -- Start Linear Address Record
---        ASSERT 1; REPORT "Start Linear Address record type 0x05 not implemented"; SEVERITY FAILURE; 
---      
+--        ASSERT 1; REPORT "Start Linear Address record type 0x05 not implemented"; SEVERITY FAILURE;
+--
 --      WHEN OTHERS =>
---        ASSERT 1; REPORT "Invalid Intel HEX format record type"; SEVERITY FAILURE;    
---      
+--        ASSERT 1; REPORT "Invalid Intel HEX format record type"; SEVERITY FAILURE;
+--
 --      END CASE;
---  
+--
 --  END LOOP; -- Read file
 --END PROCESS read_ihex_file;
---  
+--
