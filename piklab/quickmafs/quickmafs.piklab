@@ -1,0 +1,12 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F84</device>
+    <tool>gputils</tool>
+    <programmer>gpsim</programmer>
+    <files>
+      <item>quickmafs.asm</item>
+    </files>
+  </general>
+  <editors/>
+</piklab>

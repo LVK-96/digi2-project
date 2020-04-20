@@ -1,0 +1,14 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F84</device>
+    <tool>gputils</tool>
+    <programmer>gpsim</programmer>
+    <files>
+      <item>led_blinker_assembly_code.asm</item>
+    </files>
+    <opened_files>
+      <item>led_blinker_assembly_code.asm</item>
+    </opened_files>
+  </general>
+</piklab>
