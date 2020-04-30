@@ -27,7 +27,7 @@ entity ram is
 end entity ram;
 
 architecture rtl of ram is
-  signal memory : mem_array_8;
+  signal memory        : mem_array_8;
   constant indf_addr   : integer := 16#00#;
   constant pcl_addr    : integer := 16#02#;
   constant status_addr : integer := 16#03#;

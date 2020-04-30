@@ -46,7 +46,7 @@ package pic16f84a is
   constant NOP_OPCODE   : std_logic_vector(instruction_n - 1 downto 0) := "0000000-------";
 
   -- Memory types
-  type program_array is array(0 TO inst_mem_size - 1) of std_logic_vector(instruction_n - 1 downto 0);
+  type program_array is array(0 to inst_mem_size - 1) of std_logic_vector(instruction_n - 1 downto 0);
   type mem_array_8 is array (0 to 2**n - 1) of std_logic_vector(n - 1 downto 0);
 
   type operation is (

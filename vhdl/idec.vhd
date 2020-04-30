@@ -28,9 +28,9 @@ end entity idec;
 
 architecture rtl of idec is
   signal state                   : idec_state;
-  signal executing_byte_oriented : std_logic := '0';
-  signal executing_bit_oriented  : std_logic := '0';
-  signal affects_status          : std_logic := '0';
+  signal executing_byte_oriented : std_logic;
+  signal executing_bit_oriented  : std_logic;
+  signal affects_status          : std_logic;
 begin
   process(clk, reset)
     variable next_state : idec_state;
@@ -223,14 +223,12 @@ begin
               -- It is a NOP or we failed to decode the instruction
               -- just increment pc and try the next one
               pc_we <= '1';
-              pc_out <= std_logic_vector(unsigned(pc_in) + to_unsigned(1, pc_n));
+              pc_out <= std_logic_vector(to_unsigned(to_integer(unsigned(pc_in) + to_unsigned(1, pc_n)) mod inst_mem_size, pc_n));
             end if;
           when MRead =>
             alu_enable <= '1';
             state <= Execute;
           when Execute =>
-            alu_enable <= '0';
-
             if executing_byte_oriented = '1' then
               ram_we <= instruction_in(7);
             else
@@ -244,11 +242,11 @@ begin
             end if;
 
             status_we <= affects_status;
-            pc_out <= std_logic_vector(unsigned(pc_in) + to_unsigned(1, pc_n));
+            pc_out <= std_logic_vector(to_unsigned(to_integer(unsigned(pc_in) + to_unsigned(1, pc_n)) mod inst_mem_size, pc_n));
             pc_we <= '1';
             state <= Mwrite;
           when Mwrite =>
-            executing_byte_oriented <= '0';
+            alu_enable <= '0';
             ram_we <= '0';
             w_reg_we <= '0';
             status_we <= '0';

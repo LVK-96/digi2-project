@@ -1,0 +1,3 @@
+gui_start
+analyze -library WORK -format vhdl {/home/pt/lkivikun/digi2/pic16f84a/vhdl/pic16f84a_pkg.vhd /home/pt/lkivikun/digi2/pic16f84a/vhdl/ram.vhd /home/pt/lkivikun/digi2/pic16f84a/vhdl/program_mem.vhd /home/pt/lkivikun/digi2/pic16f84a/vhdl/n_bit_register.vhd /home/pt/lkivikun/digi2/pic16f84a/vhdl/idec.vhd /home/pt/lkivikun/digi2/pic16f84a/vhdl/alu.vhd /home/pt/lkivikun/digi2/pic16f84a/vhdl/top.vhd}
+elaborate TOP -architecture RTL -library WORK

@@ -8,22 +8,23 @@ use work.pic16f84a.all;
 
 entity top is
   port (
-    signal pc_reset          : in std_logic;
-    signal w_reg_reset       : in std_logic;
-    signal ram_reset         : in std_logic;
-    signal idec_reset        : in std_logic;
-    signal program_mem_reset : in std_logic;
-    signal idec_enable       : in std_logic;
-    signal porta             : out std_logic_vector(porta_n - 1 downto 0);
-    signal portb             : out std_logic_vector(portb_n - 1 downto 0)
+    signal clk                  : in std_logic;
+    signal pc_reset             : in std_logic;
+    signal w_reg_reset          : in std_logic;
+    signal ram_reset            : in std_logic;
+    signal idec_reset           : in std_logic;
+    signal program_mem_reset    : in std_logic;
+    signal idec_enable          : in std_logic;
+    signal program_mem_we       : in std_logic;
+    signal program_mem_d_in     : in std_logic_vector(instruction_n - 1 downto 0);
+    signal program_mem_addr_in  : in std_logic_vector(pc_n - 1 downto 0);
+    signal porta                : out std_logic_vector(porta_n - 1 downto 0);
+    signal portb                : out std_logic_vector(portb_n - 1 downto 0)
   );
 begin
 end entity top;
 
 architecture rtl of top is
-  -- Common
-  signal clk: std_logic := '1';
-
   -- Program counter
   signal pc_we       : std_logic;
   signal pc_d_out    : std_logic_vector(pc_n - 1 downto 0);
@@ -41,6 +42,7 @@ architecture rtl of top is
 
   -- Program memory
   signal program_mem_d_out : std_logic_vector(instruction_n - 1 downto 0);
+  signal program_mem_addr  : std_logic_vector(pc_n - 1 downto 0);
 
   -- ALU
   signal alu_enable     : std_logic;
@@ -55,8 +57,8 @@ architecture rtl of top is
   signal idec_pc_out     : std_logic_vector(pc_n - 1 downto 0);
   signal literal_flag    : std_logic;
 begin
-  clk <= not clk after half_period;
   alu_fl_in <= idec_fl_out when literal_flag = '1' else ram_d_out;
+  program_mem_addr <= program_mem_addr_in when program_mem_we = '1' else idec_pc_out;
 
   pc : entity work.n_bit_register
   generic map (pc_n)
@@ -98,9 +100,12 @@ begin
 
   program_mem : entity work.program_mem
   port map (
-    addr  => pc_d_out,
+    clk   => clk,
+    addr  => program_mem_addr,
     reset => program_mem_reset,
-    d_out => program_mem_d_out
+    d_out => program_mem_d_out,
+    d_in  => program_mem_d_in,
+    we    => program_mem_we
   );
 
   alu : entity work.alu

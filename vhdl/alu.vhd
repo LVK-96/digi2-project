@@ -23,7 +23,7 @@ end entity alu;
 
 architecture rtl of alu is
 begin
-  process(w, fl, operation, bit_select, status_in, enable) is
+  process(enable, w, fl, operation, bit_select, status_in) is
     variable res : std_logic_vector(n downto 0);
     variable tmp : std_logic;
 
@@ -164,8 +164,7 @@ begin
     procedure movfl_inst (
       signal fl         : in    std_logic_vector(n - 1 downto 0);
       --
-      signal result     : out   std_logic_vector(n - 1 downto 0);
-      signal status     : out   std_logic_vector(n - 1 downto 0)
+      signal result     : out   std_logic_vector(n - 1 downto 0)
     ) is
       variable res      : std_logic_vector(n - 1 downto 0);
     begin
@@ -329,16 +328,17 @@ begin
         when MOVWF =>
           movwf_inst(w, result);
         when MOVF =>
-          movfl_inst(fl, result, status);
+          movfl_inst(fl, result);
         when MOVLW =>
-          movfl_inst(fl, result, status);
+          movfl_inst(fl, result);
         when SWAPF =>
           swapf_inst(fl, result, status);
-        when NOP =>
-          null;
         when others =>
-          null;
+          result <= w;
       end case;
+    else
+      status <= status_in;
+      result <= w;
     end if;
   end process;
 end architecture rtl;

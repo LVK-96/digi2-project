@@ -7,7 +7,9 @@ add wave dut.clk
 add wave idec_enable
 
 add wave -noupdate -divider program_mem
+add wave dut.program_mem.we
 add wave dut.program_mem.addr
+add wave dut.program_mem.d_in
 add wave dut.program_mem.d_out
 
 add wave -noupdate -divider ram
@@ -60,5 +62,5 @@ add wave -noupdate -divider output
 add wave pic16f84a_tb.porta
 add wave pic16f84a_tb.portb
 
-run 6800ns
+run 54000ns
 wave zoom full
