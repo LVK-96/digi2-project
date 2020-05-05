@@ -47,7 +47,7 @@ begin
     "00000000" when pch_addr, -- pch is not explicitly readable
     memory(to_integer(unsigned(addr))) when others;
 
-  process(clk, reset)
+  process(clk, reset, status_we, pc_we, addr, we, d_in, status_in, pc_in)
     variable addr_int : integer;
   begin
     if (reset = '1') then
