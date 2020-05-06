@@ -1,2 +1,4 @@
 *.log
 formality_svf
+FM_WORK
+*.lck

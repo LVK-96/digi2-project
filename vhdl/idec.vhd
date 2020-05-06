@@ -223,7 +223,7 @@ begin
               -- It is a NOP or we failed to decode the instruction
               -- just increment pc and try the next one
               pc_we <= '1';
-              pc_out <= std_logic_vector(to_unsigned(to_integer(unsigned(pc_in) + to_unsigned(1, pc_n)) mod inst_mem_size, pc_n));
+              pc_out <= std_logic_vector(unsigned(pc_in) + to_unsigned(1, pc_n));
             end if;
           when MRead =>
             alu_enable <= '1';
@@ -242,8 +242,8 @@ begin
             end if;
 
             status_we <= affects_status;
-            pc_out <= std_logic_vector(to_unsigned(to_integer(unsigned(pc_in) + to_unsigned(1, pc_n)) mod inst_mem_size, pc_n));
             pc_we <= '1';
+            pc_out <= std_logic_vector(unsigned(pc_in) + to_unsigned(1, pc_n));
             state <= Mwrite;
           when Mwrite =>
             alu_enable <= '0';
