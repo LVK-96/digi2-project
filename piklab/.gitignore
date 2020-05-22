@@ -1,6 +1,5 @@
 #piklab project management
 *.adb
-*.asm
 *.p
 *.lst
 *.cod
