@@ -60,7 +60,7 @@ begin
     program_mem_reset <= '0';
     wait for half_period - 1 ns;
     -- Read the hex file and write it to program memory
-    read_ihex_file("../piklab/quickmafs/quickmafs.hex", hex_prog_read);
+    read_ihex_file("../piklab/test-all/test-all.hex", hex_prog_read);
     program_mem_we <= '1';
     for i in 0 to inst_mem_size - 1 loop
       program_mem_addr_in <= std_logic_vector(to_unsigned(i, program_mem_addr_in'length));

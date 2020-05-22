@@ -62,5 +62,5 @@ add wave -noupdate -divider output
 add wave pic16f84a_tb.porta
 add wave pic16f84a_tb.portb
 
-run 54000ns
+run 58000ns
 wave zoom full
