@@ -1,7 +1,7 @@
 #######################################################
 #
 #  Innovus Command Logging File
-#  Created on Mon May 18 13:24:10 2020
+#  Created on Mon May 25 11:01:16 2020
 #
 #######################################################
 
@@ -30,62 +30,71 @@ uiSetTool select
 getIoFlowFlag
 fit
 set ptngSprNoRefreshPins 1
-setPtnPinStatus -cell top -pin {program_mem_addr_in[0]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[1]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[2]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[3]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[4]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[5]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[6]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[7]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[8]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[9]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[10]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[11]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_addr_in[12]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[0]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[1]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[2]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[3]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[4]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[5]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[6]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[7]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[8]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[9]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[10]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[11]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[12]} -status unplaced -silent
-setPtnPinStatus -cell top -pin {program_mem_d_in[13]} -status unplaced -silent
+setPtnPinStatus -cell top -pin pc_reset -status unplaced -silent
+setPtnPinStatus -cell top -pin idec_reset -status unplaced -silent
+setPtnPinStatus -cell top -pin idec_enable -status unplaced -silent
+setPtnPinStatus -cell top -pin clk -status unplaced -silent
+setPtnPinStatus -cell top -pin program_mem_reset -status unplaced -silent
+setPtnPinStatus -cell top -pin program_mem_we -status unplaced -silent
+setPtnPinStatus -cell top -pin ram_reset -status unplaced -silent
+setPtnPinStatus -cell top -pin w_reg_reset -status unplaced -silent
 set ptngSprNoRefreshPins 0
 ptnSprRefreshPinsAndBlockages
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Top -layer 1 -spreadType center -spacing 0.2 -pin {{program_mem_addr_in[0]} {program_mem_addr_in[1]} {program_mem_addr_in[2]} {program_mem_addr_in[3]} {program_mem_addr_in[4]} {program_mem_addr_in[5]} {program_mem_addr_in[6]} {program_mem_addr_in[7]} {program_mem_addr_in[8]} {program_mem_addr_in[9]} {program_mem_addr_in[10]} {program_mem_addr_in[11]} {program_mem_addr_in[12]} {program_mem_d_in[0]} {program_mem_d_in[1]} {program_mem_d_in[2]} {program_mem_d_in[3]} {program_mem_d_in[4]} {program_mem_d_in[5]} {program_mem_d_in[6]} {program_mem_d_in[7]} {program_mem_d_in[8]} {program_mem_d_in[9]} {program_mem_d_in[10]} {program_mem_d_in[11]} {program_mem_d_in[12]} {program_mem_d_in[13]}}
+editPin -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Left -layer 1 -spreadType center -spacing 20 -pin {pc_reset idec_reset idec_enable clk program_mem_reset program_mem_we ram_reset w_reg_reset}
+setPinAssignMode -pinEditInBatch false
+set ptngSprNoRefreshPins 1
+setPtnPinStatus -cell top -pin {porta[0]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {porta[1]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {porta[2]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {porta[3]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {porta[4]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[0]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[1]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[2]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[3]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[4]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[5]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[6]} -status unplaced -silent
+setPtnPinStatus -cell top -pin {portb[7]} -status unplaced -silent
+set ptngSprNoRefreshPins 0
+ptnSprRefreshPinsAndBlockages
+getPinAssignMode -pinEditInBatch -quiet
+setPinAssignMode -pinEditInBatch true
+editPin -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Right -layer 1 -spreadType center -spacing 20.0 -pin {{porta[0]} {porta[1]} {porta[2]} {porta[3]} {porta[4]} {portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]}}
 setPinAssignMode -pinEditInBatch false
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -pinWidth 0.06 -pinDepth 0.335 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Top -layer 4 -spreadType center -spacing 0.2 -pin {{program_mem_addr_in[0]} {program_mem_addr_in[1]} {program_mem_addr_in[2]} {program_mem_addr_in[3]} {program_mem_addr_in[4]} {program_mem_addr_in[5]} {program_mem_addr_in[6]} {program_mem_addr_in[7]} {program_mem_addr_in[8]} {program_mem_addr_in[9]} {program_mem_addr_in[10]} {program_mem_addr_in[11]} {program_mem_addr_in[12]} {program_mem_d_in[0]} {program_mem_d_in[1]} {program_mem_d_in[2]} {program_mem_d_in[3]} {program_mem_d_in[4]} {program_mem_d_in[5]} {program_mem_d_in[6]} {program_mem_d_in[7]} {program_mem_d_in[8]} {program_mem_d_in[9]} {program_mem_d_in[10]} {program_mem_d_in[11]} {program_mem_d_in[12]} {program_mem_d_in[13]}}
+editPin -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Top -layer 4 -spreadType center -spacing 20.0 -pin {{program_mem_addr_in[0]} {program_mem_addr_in[1]} {program_mem_addr_in[2]} {program_mem_addr_in[3]} {program_mem_addr_in[4]} {program_mem_addr_in[5]} {program_mem_addr_in[6]} {program_mem_addr_in[7]} {program_mem_addr_in[8]} {program_mem_addr_in[9]} {program_mem_addr_in[10]} {program_mem_addr_in[11]} {program_mem_addr_in[12]}}
 setPinAssignMode -pinEditInBatch false
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection counterclockwise -side Bottom -layer 4 -spreadType center -spacing 0.2 -pin {{porta[0]} {porta[1]} {porta[2]} {porta[3]} {porta[4]} {portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]}}
+editPin -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Bottom -layer 4 -spreadType center -spacing 20.0 -pin {{program_mem_d_in[0]} {program_mem_d_in[1]} {program_mem_d_in[2]} {program_mem_d_in[3]} {program_mem_d_in[4]} {program_mem_d_in[5]} {program_mem_d_in[6]} {program_mem_d_in[7]} {program_mem_d_in[8]} {program_mem_d_in[9]} {program_mem_d_in[10]} {program_mem_d_in[11]} {program_mem_d_in[12]} {program_mem_d_in[13]}}
 setPinAssignMode -pinEditInBatch false
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -pinWidth 0.08 -pinDepth 0.25 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection counterclockwise -side Bottom -layer 4 -spreadType center -spacing 0.2 -pin {{porta[0]} {porta[1]} {porta[2]} {porta[3]} {porta[4]} {portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]}}
+editPin -pinWidth 0.08 -pinDepth 0.25 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Bottom -layer 4 -spreadType center -spacing 20.0 -pin {{program_mem_d_in[0]} {program_mem_d_in[1]} {program_mem_d_in[2]} {program_mem_d_in[3]} {program_mem_d_in[4]} {program_mem_d_in[5]} {program_mem_d_in[6]} {program_mem_d_in[7]} {program_mem_d_in[8]} {program_mem_d_in[9]} {program_mem_d_in[10]} {program_mem_d_in[11]} {program_mem_d_in[12]} {program_mem_d_in[13]}}
 setPinAssignMode -pinEditInBatch false
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Left -layer 3 -spreadType center -spacing 10 -pin {clk idec_enable idec_reset pc_reset}
+editPin -pinWidth 0.06 -pinDepth 0.335 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Left -layer 3 -spreadType center -spacing 20.0 -pin {clk idec_enable idec_reset pc_reset program_mem_reset program_mem_we ram_reset w_reg_reset}
 setPinAssignMode -pinEditInBatch false
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Right -layer 3 -spreadType center -spacing 10 -pin {program_mem_reset ram_reset w_reg_reset program_mem_we}
+editPin -pinWidth 0.06 -pinDepth 0.335 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Right -layer 3 -spreadType center -spacing 20.0 -pin {{porta[0]} {porta[1]} {porta[2]} {porta[3]} {porta[4]} {portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]}}
 setPinAssignMode -pinEditInBatch false
 getPinAssignMode -pinEditInBatch -quiet
 setPinAssignMode -pinEditInBatch true
-editPin -pinWidth 0.08 -pinDepth 0.25 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Left -layer 3 -spreadType center -spacing 0.2 -pin idec_enable
+editPin -pinWidth 0.08 -pinDepth 0.335 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Right -layer 3 -spreadType center -spacing 20.0 -pin {{portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]}}
+setPinAssignMode -pinEditInBatch false
+getPinAssignMode -pinEditInBatch -quiet
+setPinAssignMode -pinEditInBatch true
+editPin -pinWidth 0.08 -pinDepth 0.335 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Right -layer 3 -spreadType center -spacing 20.0 -pin {{portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]} {porta[0]} {porta[1]} {porta[2]} {porta[3]} {porta[4]}}
+setPinAssignMode -pinEditInBatch false
+getPinAssignMode -pinEditInBatch -quiet
+setPinAssignMode -pinEditInBatch true
+editPin -pinWidth 0.08 -pinDepth 0.335 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Right -layer 3 -spreadType center -spacing 20.0 -pin {{portb[0]} {portb[1]} {portb[2]} {portb[3]} {portb[4]} {portb[5]} {portb[6]} {portb[7]} {porta[0]} {porta[1]} {porta[2]} {porta[3]} {porta[4]}}
 setPinAssignMode -pinEditInBatch false
 set sprCreateIeRingOffset 1.0
 set sprCreateIeRingThreshold 1.0
@@ -130,32 +139,16 @@ addStripe -nets {vdd! vss!} -layer Metal8 -direction vertical -width 4.5 -spacin
 clearGlobalNets
 globalNetConnect vdd! -type pgpin -pin VDD -instanceBasename * -hierarchicalInstance {}
 globalNetConnect vss! -type pgpin -pin VSS -instanceBasename * -hierarchicalInstance {}
-clearGlobalNets
-globalNetConnect vdd! -type pgpin -pin VDD -instanceBasename * -hierarchicalInstance {}
-globalNetConnect vss! -type pgpin -pin VSS -instanceBasename * -hierarchicalInstance {}
 setSrouteMode -viaConnectToShape { noshape }
 sroute -connect { corePin } -layerChangeRange { Metal1(1) Metal11(11) } -blockPinTarget { nearestTarget } -corePinTarget { firstAfterRowEnd } -allowJogging 1 -crossoverViaLayerRange { Metal1(1) Metal11(11) } -nets { vdd! vss! } -allowLayerChange 1 -targetViaLayerRange { Metal1(1) Metal11(11) }
-setDrawView place
 setDesignMode -process 45
 setMaxRouteLayer 6
 setMultiCpuUsage -localCpu 8 -cpuPerRemoteHost 1 -remoteHost 0 -keepLicense true
 setDistributeHost -local
 setPlaceMode -fp false
 place_design
-getPinAssignMode -pinEditInBatch -quiet
-setPinAssignMode -pinEditInBatch true
-editPin -pinWidth 0.08 -pinDepth 0.25 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Left -layer 3 -spreadType center -spacing 10 -pin {pc_reset idec_reset idec_enable clk}
-setPinAssignMode -pinEditInBatch false
-getPinAssignMode -pinEditInBatch -quiet
-setPinAssignMode -pinEditInBatch true
-editPin -pinWidth 0.08 -pinDepth 0.25 -fixedPin 1 -snap MGRID -fixOverlap 1 -unit MICRON -spreadDirection clockwise -side Left -layer 3 -spreadType center -spacing 10.0 -pin {pc_reset idec_reset idec_enable clk}
-setPinAssignMode -pinEditInBatch false
-setPlaceMode -fp false
-place_design
-getCTSMode -engine -quiet
 setOptMode -fixCap true -fixTran true -fixFanoutLoad true
 optDesign -preCTS
-gui_select -rect {526.054 517.460 673.107 404.627}
 setRouteMode -earlyGlobalHonorMsvRouteConstraint false -earlyGlobalRoutePartitionPinGuide true
 setEndCapMode -reset
 setEndCapMode -boundary_tap false
@@ -165,9 +158,9 @@ setNanoRouteMode -quiet -drouteUseMultiCutViaEffort medium
 setNanoRouteMode -quiet -timingEngine {}
 setUsefulSkewMode -maxSkew false -noBoundary false -useCells {DLY4X4LVT DLY4X1LVT DLY3X4LVT DLY3X1LVT DLY2X4LVT DLY2X1LVT DLY1X4LVT DLY1X1LVT CLKBUFX8LVT CLKBUFX6LVT CLKBUFX4LVT CLKBUFX3LVT CLKBUFX20LVT CLKBUFX2LVT CLKBUFX16LVT CLKBUFX12LVT BUFX8LVT BUFX6LVT BUFX4LVT BUFX3LVT BUFX20LVT BUFX2LVT BUFX16LVT BUFX12LVT INVXLLVT INVX8LVT INVX6LVT INVX4LVT INVX3LVT INVX20LVT INVX2LVT INVX16LVT INVX12LVT INVX1LVT CLKINVX8LVT CLKINVX6LVT CLKINVX4LVT CLKINVX3LVT CLKINVX20LVT CLKINVX2LVT CLKINVX16LVT CLKINVX12LVT CLKINVX1LVT} -maxAllowedDelay 1
 ccopt_design
+getCTSMode -engine -quiet
 setOptMode -fixCap true -fixTran true -fixFanoutLoad true
 optDesign -postCTS
-setOptMode -fixCap true -fixTran true -fixFanoutLoad true
 optDesign -postCTS -hold
 setNanoRouteMode -quiet -routeInsertAntennaDiode 1
 setNanoRouteMode -quiet -routeAntennaCellName ANTENNALVT
@@ -176,6 +169,16 @@ setNanoRouteMode -quiet -drouteEndIteration default
 setNanoRouteMode -quiet -routeWithTimingDriven false
 setNanoRouteMode -quiet -routeWithSiDriven false
 routeDesign -globalDetail
+addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+deleteMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
+routeDesign -wireopt
+verifyConnectivity -type all -error 1000 -warning 50
+setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
+verifyGeometry
+setVerifyGeometryMode -area { 0 0 0 0 }
 addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
 setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
 setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
@@ -216,239 +219,63 @@ setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000
 setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
 setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
 verifyMetalDensity -report top.density.rpt
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001
+setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -minDensity 18.00
+setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -minDensity 18.00
+setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -minDensity 18.00
+setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -minDensity 18.00
+setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001
+setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001
+setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001
+setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001
+setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001
+setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001
+deleteMetalFill -layer { Metal2 } -shapes { FILLWIRE FILLWIREOPC } -mode all
+deleteMetalFill -layer { Metal3 } -shapes { FILLWIRE FILLWIREOPC } -mode all
+deleteMetalFill -layer { Metal4 } -shapes { FILLWIRE FILLWIREOPC } -mode all
+deleteMetalFill -layer { Metal5 } -shapes { FILLWIRE FILLWIREOPC } -mode all
+addMetalFill -layer { Metal2 Metal3 Metal4 Metal5 }
+setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+verifyMetalDensity -report top.density.rpt
 setAnalysisMode -cppr none -clockGatingCheck true -timeBorrowing true -useOutputPinCap true -sequentialConstProp false -timingSelfLoopsNoSkew false -enableMultipleDriveNet true -clkSrcPath true -warn true -usefulSkew true -analysisType onChipVariation -log true
 setExtractRCMode -engine postRoute -effortLevel high -coupled true -capFilterMode relAndCoup -coupling_c_th 0.1 -total_c_th 0 -relative_c_th 1
 setOptMode -fixCap true -fixTran true -fixFanoutLoad true
-setDelayCalMode -engine default -siAware true
 optDesign -postRoute
-setOptMode -fixCap true -fixTran true -fixFanoutLoad true
-optDesign -postRoute
-setOptMode -fixCap true -fixTran true -fixFanoutLoad true
-setDelayCalMode -engine default -siAware true
 optDesign -postRoute -hold
-trimMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
 getFillerMode -quiet
 addFiller -cell FILL1LVT FILL8LVT FILL64LVT FILL4LVT FILL32LVT FILL2LVT FILL16LVT -prefix FILLER
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001
-addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
-setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
-verifyGeometry
-setVerifyGeometryMode -area { 0 0 0 0 }
-deleteMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
-verifyGeometry
-setVerifyGeometryMode -area { 0 0 0 0 }
-setLayerPreference violation -isVisible 1
-violationBrowser -all -no_display_false
-violationBrowserClose
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001
-addMetalFill -layer { Metal1 Metal2 Metal3 Metal4 Metal5 Metal6 Metal7 Metal8 Metal9 Metal10 Metal11 }
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setLayerPreference violation -isVisible 1
-violationBrowser -all -no_display_false
-violationBrowserClose
-getCTSMode -engine -quiet
-setMetalFill -layer Metal1 -opcActiveSpacing 0.060 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal2 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal3 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal4 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal5 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal6 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal7 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal8 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal9 -opcActiveSpacing 0.070 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal10 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-setMetalFill -layer Metal11 -opcActiveSpacing 0.200 -borderSpacing -0.001 -opc
-getCTSMode -engine -quiet
-addMetalFill -layer { Metal2 }
-zoomBox 10690.622 3452.122 -5100.780 -3035.818
-zoomBox -1791.327 -1191.216 2498.704 1627.948
-zoomBox 1044.645 859.374 -498.213 -555.837
-zoomBox 707.332 709.633 -81.062 -56.806
-setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
-verifyMetalDensity -report top.density.rpt
 setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
 verifyGeometry
 setVerifyGeometryMode -area { 0 0 0 0 }
 verifyConnectivity -type all -error 1000 -warning 50
 verifyProcessAntenna -report top.antenna.rpt -error 1000
+setMetalFill -layer Metal1 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal2 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal3 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal4 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal5 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 18.000 -maxDensity 65.000
+setMetalFill -layer Metal6 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal7 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal8 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal9 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal10 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+setMetalFill -layer Metal11 -windowSize 120.000 120.000 -windowStep 60.000 60.000 -minDensity 20.000 -maxDensity 65.000
+verifyMetalDensity -report top.density.rpt
 saveNetlist ../netlist/pic16f84a_layout.v
 writeTimingCon -sdc ../timing/postlayout.sdc
-reset_parasitics
-extractRC
-rcOut -spef ../timing/pic.spef -rc_corner rc_basic
 reset_parasitics
 extractRC
 rcOut -spef ../timing/pic.spef -rc_corner rc_basic
