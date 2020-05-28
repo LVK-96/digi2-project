@@ -1,19 +1,64 @@
-### Repository structure:
+# Digital microelectronics II design project - PIC16F84A microcontroller
 
-- __simulations:__ directory for all simulaiton-related files, namely
-    - do-files: QuestaSim scripts for automatic compiling of VHDL code and
-      running simulation 
-    - (optional) input and output files: these are sometimes required for
-      your testbench for reading and writing information using VHDL textio 
-    - QuestaSim files: these are automatically generated and should not be
-      included in git version control (see .gitignore file)
-- __vhdl:__ directory for your VHDL code and testbenches. _Remember, only 1 entity per file!_
+Implementation of the PIC16F84A microcontoller.
 
+## Scripts
 
-### Running simulations
+Run the scripts in order to complete the design flow.
+
+### Simulation
 
 ```
 cd simulations
 use advms_17.1
-vsim -do run_simulation.do
+vsim -do pic16f84a_simulation.do
 ```
+
+### Synthesis
+
+```
+cd synthesis
+use syn_2015.06-SP4
+design_vision -f synthesis.tcl
+```
+
+### Verification
+
+```
+cd formality
+use formality_2015.06-SP4
+formality -f verify.tcl
+```
+
+### Place and route
+
+```
+cd layout
+use innovus_18.1
+innovus -file layout.tcl
+```
+Generated reports:
+* `top.density.rpt`
+* `top.antenna.rpt`
+
+### Final verification
+```
+cd formality
+use formality_2015.06-SP4
+formality -f verify_layout.tcl
+```
+
+```
+cd primetime
+use primetime_2015.12
+pt_shell -f timing_setup.tcl
+pt_shell -f timing_hold.tcl
+```
+
+Generated reports:
+* `reports/setup_check.rpt`
+* `reports/setup_viol.rpt`
+* `reports/setup_check.rpt`
+* `reports/hold_check.rpt`
+* `reports/hold_viol.rpt`
+* `reports/hold_power.rpt`
