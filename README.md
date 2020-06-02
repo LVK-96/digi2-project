@@ -36,10 +36,18 @@ formality -f verify.tcl
 cd layout
 use innovus_18.1
 innovus -file layout.tcl
+
 ```
 Generated reports:
 * `top.density.rpt`
 * `top.antenna.rpt`
+* `top.conn.rpt`
+* `top.geom.rpt`
+* `top.metalfill.rpt`
+
+There might be some warnings in these reports. I ignored them, since
+the digiflow tutorial states that some errors might appear and that
+there is currently no solution for them.
 
 ### Final verification
 ```
@@ -50,6 +58,7 @@ formality -f verify_layout.tcl
 
 ```
 cd primetime
+mkdir reports
 use primetime_2015.12
 pt_shell -f timing_setup.tcl
 pt_shell -f timing_hold.tcl
